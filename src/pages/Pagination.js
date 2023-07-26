@@ -11,6 +11,7 @@ const Pagination = () => {
   const [number, setNumber] = useState(1); // No of pages
   const [postPerPage] = useState(10);
   const [SearchBar, setSearchBar] = useState("");
+  const [searchArr, setSearchArr] = useState([]);
   const [sorted, setSorted] = useState("ASC");
  
   const [isIconClicked, setIsIconClicked] = useState(false);
@@ -37,20 +38,7 @@ const Pagination = () => {
       setSorted("ASC");
     }
   };
-  // const sorting2 = (col) => {
-  //   setIsIconClicked(!isIconClicked);
-  //   console.log(col);
-  //   if (sorted2 === "ASC") {
-  //     const sorted = [...post].sort((a, b) =>
-  //       a[col]> b[col] ? 1 : -1
-  //     );
-  //     setPost(sorted2);
-  //     setSorted2("ASC");
-      
-      
-  //   }
-  // };
-
+  
   
 
   useEffect(() => {
@@ -77,6 +65,29 @@ const Pagination = () => {
 //   for (let i = 1; i <= Math.ceil(post.length / postPerPage); i++) {
 //     pageNumber.push(i);
 //   }
+
+
+
+
+const searchData =()=>{
+  if(SearchBar){
+
+  const dataArr = post.filter((id)=>{
+    return SearchBar.toLowerCase()==='' ? id :
+     id.name.toLowerCase().includes(SearchBar) ;
+  }).slice(firstPost,lastPost)
+    setSearchArr(dataArr)
+  }else{
+    setSearchArr(post.slice(firstPost,lastPost))
+  }
+}
+useEffect(()=>{
+  searchData()
+}, [SearchBar,firstPost,lastPost,post])
+
+useEffect(()=>{
+console.log('searchArr',searchArr);
+}, [searchArr])
 
   const ChangePage = (pageNumber) => {
     setNumber(pageNumber);
@@ -122,9 +133,7 @@ const Pagination = () => {
               </tr>
             </thead>
             <tbody>
-              {currentPost.filter((currentPost) =>
-               currentPost.name.toLowerCase().includes(SearchBar)
-              ).map((Val) => {
+              {searchArr.map((Val) => {
                  console.log(currentPost,"currentt")
                 return (
                   <>
