@@ -45,13 +45,38 @@ li{
   background-color: #282c34;
 }
 
- /* tbody {
-  
-  height:500px;
-  overflow:scroll;
-} */
-/* thead, tbody tr {
-  display:table;
-  width:100%;
-  table-layout:fixed;
-}  */
+ :disabled{
+  background-color: rgb(185, 180, 180);
+  color:white;
+ }
+.active{
+  background-color: aquamarine;
+}
+.hoverClass:hover{
+  background-color: #282c34;
+}
+
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading-spinner {
+  width: 100px;
+  height: 100px;
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 10px solid #383636; /* Blue */
+  border-radius: 50%;
+  animation: spinner 3.5s linear infinite;
+}
+
+.spinner-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+}
